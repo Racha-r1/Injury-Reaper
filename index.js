@@ -1,8 +1,8 @@
-const Discord = require('discord.js');
+const {Client, Intents, MessageEmbed} = require('discord.js');
 const axios = require('axios');
 require('dotenv').config();
 
-const client = new Discord.Client();
+const client = new Client({intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]});
 
 const teams_to_api_format = {
     "atlanta hawks": "atlanta",
@@ -71,7 +71,7 @@ client.on('ready', () => {
 	console.log(`Logged in as ${client.user.tag}!`);
 });
 
-client.on('message', msg => {
+client.on('messageCreate', msg => {
     if (msg.content.startsWith("!team_injuries")){
         const arr = msg.content.split("<");
         const team = arr[1].split(">")[0];
@@ -86,20 +86,20 @@ client.on('message', msg => {
                     msg.channel.send(`No injuries reported for ${team.charAt(0).toUpperCase() + team.slice(1)}`);
                 }
                 else {
-                    const embed = new Discord.MessageEmbed()
+                    const embed = new MessageEmbed()
                         .setTitle(`${team_injuries.team} Injuries`)
                         .setColor(0x00AE86)
                         .setFooter('@Copyright Mbongo Bueno Corporations')
                         .setDescription(`${team_injuries.players.map(player => `${player["PLAYER"]} (${player["INJURY STATUS"]})`).join("\n")}`)
-                        .setThumbnail(team_injuries.logo)
-                    msg.channel.send(embed);
+                        .setThumbnail(team_injuries.logo);
+                    msg.channel.send({embeds: [embed]});
                 }
             })
         }
     }
 
     if (msg.content === "!help(injury_reaper)"){
-        const help = new Discord.MessageEmbed()
+        const help = new MessageEmbed()
           .setColor("#0099ff")
           .setTitle("Help")
           .setDescription("Every command starts with a !")
@@ -115,7 +115,7 @@ client.on('message', msg => {
                   "Gives you all the allowed team names that you can pass to the bot"
               },
           )
-        msg.channel.send(help);
+        msg.channel.send({embeds: [help]});
     }
 
     if (msg.content === "!team_names"){
@@ -151,11 +151,11 @@ client.on('message', msg => {
             "utah jazz | utah",
             "washington wizards | washington"
         ]
-        const teams = new Discord.MessageEmbed()
+        const teams = new MessageEmbed()
           .setColor("#0099ff")
           .setTitle("Teams")
           .setDescription(`${allowed_names.join("\n")}`)
-        msg.channel.send(teams);
+        msg.channel.send({embeds: [teams]});
     }
 });
 
