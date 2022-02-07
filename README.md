@@ -8,4 +8,4 @@ Discord bot that gives you the most up to date data about the current injuries i
 
 #### ```!team_names =>``` returns all a list of all the allowed team names that you can pass to the bot
 
-#### ```!help =>``` returns all the commands with some information
+#### ```!help(injury_reaper) =>``` returns all the commands with some information
