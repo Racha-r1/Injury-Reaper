@@ -10,12 +10,14 @@ module.exports = {
           .setDescription("Every command starts with a !")
           .addFields(
             {
-              name: "team_injuries team",
+              name: "!injuries `team`",
               value:
-                "Gives you the injuries for a team"
+                "Gives you the injuries for a team \n `ex: !injuries Clippers`"
+                
+                
             },
             {
-                name: "team_names",
+                name: "!teams",
                 value:
                   "Gives you all the allowed team names that you can pass to the bot"
               },
