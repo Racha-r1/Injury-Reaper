@@ -1,5 +1,5 @@
 const {MessageEmbed} = require('discord.js');
-const teams_json = require("../teams.json");
+const teams_json = require("../team_initials.json");
 
 module.exports = {
     name: 'teams',
@@ -8,7 +8,8 @@ module.exports = {
         const teams = new MessageEmbed()
           .setColor("#0099ff")
           .setTitle("Teams")
-          .setDescription(`${Object.keys(teams_json).join("\n")}`)
+          .setDescription(`${Object.keys(teams_json).map(team => `${team} \`(${teams_json[team]})\``).join("\n")}`)
+          .setFooter({text: '@Copyright Mbongo Bueno Corporations'})
         msg.channel.send({embeds: [teams]});
     }
 }
