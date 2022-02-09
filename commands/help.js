@@ -12,9 +12,7 @@ module.exports = {
             {
               name: "!injuries `team`",
               value:
-                "Gives you the injuries for a team \n `ex: !injuries Clippers`"
-                
-                
+                "Gives you the injuries for a team \n `ex: !injuries Clippers`"        
             },
             {
                 name: "!teams",

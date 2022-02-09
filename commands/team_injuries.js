@@ -11,7 +11,6 @@ module.exports = {
         let team = isTeam(teams, args[0].toLowerCase());
         if (team === false){
             msg.channel.send("That team is not recognized. Please use the !teams command to see a list of valid teams.");
-            
             return;
         }
         const team_api_name = teams[team];

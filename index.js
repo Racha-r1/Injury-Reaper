@@ -2,7 +2,12 @@ const {Client, Intents, Collection} = require('discord.js');
 const fs = require('fs');
 require('dotenv').config();
 
-const client = new Client({intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]});
+const client = new Client({intents: [
+        Intents.FLAGS.GUILDS, 
+        Intents.FLAGS.GUILD_MESSAGES,
+        Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS,
+        Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+    ]});
 
 client.commands = new Collection();
 const commands = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
@@ -30,7 +35,7 @@ client.on('messageCreate', msg => {
         case "!help":
             client.commands.get('help').execute(msg, args);
             break;
-        case "stats":
+        case "!stats":
             client.commands.get('stats').execute(msg, args);
             break;
         default:
