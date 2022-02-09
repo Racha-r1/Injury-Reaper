@@ -4,7 +4,7 @@ const teams = require("../teams.json");
 require('dotenv').config();
 
 module.exports = {
-    name: 'team_injuries',
+    name: 'injuries',
     description: 'Get the latest injuries reported for the specified team',
     execute(msg, args) {
         if (args.length === 0) return;
