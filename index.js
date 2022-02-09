@@ -30,8 +30,12 @@ client.on('messageCreate', msg => {
         case "!help":
             client.commands.get('help').execute(msg, args);
             break;
+        case "stats":
+            client.commands.get('stats').execute(msg, args);
+            break;
         default:
             break;
+       
     }
 });
 
