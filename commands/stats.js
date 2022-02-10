@@ -11,14 +11,16 @@ const stats_endpoints = {
     "fg%" : "stats/2pfg",
     "3pa" : "stats/3pa",
     "fgm" : "stats/fgm", 
-    "fga" : "stats/fga"
+    "fga" : "stats/fga",
+    "steals" : "stats/steals",
+    "blocks" : "stats/blocks",
 }
 
 module.exports = {
     name: 'stats',
     description: 'Get the top 50 players for a specific stat',
     async execute(msg, args) {
-        if(!Object.keys(stats_endpoints).includes(args[0])) {
+        if(!Object.keys(stats_endpoints).includes(args[0].toLowerCase())) {
             msg.channel.send("Invalid stat");
             return;
         }
