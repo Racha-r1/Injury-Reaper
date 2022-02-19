@@ -38,6 +38,9 @@ client.on('messageCreate', msg => {
         case "!stats":
             client.commands.get('stats').execute(msg, args);
             break;
+        case "!standings":
+            client.commands.get('standings').execute(msg, args);
+            break;
         default:
             break;
        

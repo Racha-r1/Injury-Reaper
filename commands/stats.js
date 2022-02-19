@@ -36,8 +36,7 @@ const buildEmbeds = async(endpoint, stat) => {
         const embed = new MessageEmbed()
             .setTitle(`Top 50 ${stat.charAt(0).toUpperCase() + stat.slice(1)} Leaders`)
             .setColor(0x00AE86)
-            .setDescription(`${data.slice(i, i+10).map(player => `${player["rank"]}. ${player["name"]} \`(${player["avg"]})\``).join("\n")}`)
-            .setThumbnail(data[i]["TEAM LOGO"]);
+            .setDescription(`${data.slice(i, i+10).map(player => `${player["rank"]}. ${player["name"]} \`(${player["avg"]})\``).join("\n")}`);
         embeds.push(embed);
     }
     return embeds;

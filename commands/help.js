@@ -23,3 +23,4 @@ module.exports = {
         msg.channel.send({embeds: [help]});
     }
 }
+
