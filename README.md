@@ -1,8 +1,9 @@
 # Injury-Reaper
-Discord bot that gives you the most up to date data about the current injuries in the NBA
 
+![injury](https://user-images.githubusercontent.com/39442337/160500483-da947150-1681-49f3-8ad3-9bd7efb05e50.jpg)
 
-### Commands
+#### Discord bot that gives you the most up to date data about the current injuries in the NBA.
+## Commands
 
 #### ```!injuries <team> =>``` returns all the reported injuries for the team that was specified
 
