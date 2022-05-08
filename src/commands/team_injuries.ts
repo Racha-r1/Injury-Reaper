@@ -1,9 +1,10 @@
-const axios = require('axios');
-const {MessageEmbed} = require('discord.js');
-const teams = require("../teams.json");
-require('dotenv').config();
+import axios from 'axios';
+import {MessageEmbed} from 'discord.js';
+import teams from "../objects/teams";
+import Player from '../types/player';
+import Command from '../types/command';
 
-module.exports = {
+const team_injuries: Command = {
     name: 'injuries',
     description: 'Get the latest injuries reported for the specified team',
     execute(msg, args) {
@@ -13,6 +14,7 @@ module.exports = {
             msg.channel.send("That team is not recognized. Please use the !teams command to see a list of valid teams.");
             return;
         }
+        team = team as string;
         const team_api_name = teams[team];
         let output_name = "";
         for (let i = 0; i < team.trim().split(" ").length; i++){
@@ -29,7 +31,7 @@ module.exports = {
                     .setTitle(`${output_name.trim()} Injuries`)
                     .setColor(0x00AE86)
                     .setFooter({text: '@Copyright Mbongo Bueno Corporations'})
-                    .setDescription(`${team_injuries.players.map(player => `${player["PLAYER"]} (${player["INJURY STATUS"]})`).join("\n")}`)
+                    .setDescription(`${team_injuries.players.map((player: Player) => `${player["PLAYER"]} (${player["INJURY STATUS"]})`).join("\n")}`)
                     .setThumbnail(team_injuries.logo);
                  msg.channel.send({embeds: [embed]});
             }
@@ -37,8 +39,8 @@ module.exports = {
     }
 }
 
-function isTeam(teams, word) {
-    let teamVal = false;
+function isTeam(teams: Record<string, string>, word: string): boolean | string {
+    let teamVal: boolean | string  = false;
     Object.keys(teams).forEach(team => {
         if (team.split(" ").includes(word.toLowerCase())){
             teamVal = team;
@@ -46,3 +48,5 @@ function isTeam(teams, word) {
     });
     return teamVal;
 }
+
+export = team_injuries;

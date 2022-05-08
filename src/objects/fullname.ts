@@ -1,4 +1,4 @@
-{
+const fullnames: Record<string,string>  = {
     "memphis": "Memphis Grizzlies",
     "boston": "Boston Celtics",
     "new orleans": "New Orleans Pelicans",
@@ -32,3 +32,5 @@
     "oklahoma city": "Oklahoma City Thunder",
     "brooklyn": "Brooklyn Nets"
 }
+
+export default fullnames;

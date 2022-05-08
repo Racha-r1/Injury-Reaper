@@ -1,4 +1,4 @@
-{
+const teams: Record<string,string> = {
     "atlanta hawks": "atlanta",
     "boston celtics": "boston",
     "brooklyn nets": "brooklyn",
@@ -30,3 +30,5 @@
     "utah jazz": "utah",
     "washington wizards": "washington"
 }
+
+export default teams;

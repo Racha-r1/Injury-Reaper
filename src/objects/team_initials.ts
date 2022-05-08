@@ -1,4 +1,4 @@
-{
+const initials: Record<string,string> = {
     "Atlanta Hawks": "ATL",
     "Boston Celtics": "BOS",
     "Brooklyn Nets": "BKN",
@@ -29,3 +29,5 @@
     "Los Angeles Clippers": "LAC",
     "Los Angeles Lakers": "LAL"
 }
+
+export default initials;

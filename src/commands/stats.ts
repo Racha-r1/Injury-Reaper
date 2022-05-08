@@ -1,7 +1,9 @@
-const {MessageEmbed} = require('discord.js');
-const axios = require('axios');
+import {MessageEmbed, Message}  from 'discord.js';
+import axios  from 'axios';
+import Command from '../types/command';
+import PlayerStat from '../types/playerStat';
 
-const stats_endpoints = {
+const stats_endpoints: Record<string,string> = {
     "points": "stats/points",
     "rebounds": "stats/rebounds",
     "assists": "stats/assists",
@@ -16,7 +18,7 @@ const stats_endpoints = {
     "blocks" : "stats/blocks",
 }
 
-module.exports = {
+const stats : Command  = {
     name: 'stats',
     description: 'Get the top 50 players for a specific stat',
     async execute(msg, args) {
@@ -25,30 +27,29 @@ module.exports = {
             return;
         }
         const embeds = await buildEmbeds(stats_endpoints[args[0]], args[0]);
-        paginationEmbed(msg, embeds);
+        await paginationEmbed(msg, embeds);
     }
 }
 
-const buildEmbeds = async(endpoint, stat) => {
+const buildEmbeds = async(endpoint: string, stat: string) : Promise<MessageEmbed[]> => {
     const {data}  = await axios.get(`${process.env.API_URL}${endpoint}`);
     const embeds = [];
     for(let i = 0; i < data.length; i+=10){
         const embed = new MessageEmbed()
             .setTitle(`Top 50 ${stat.charAt(0).toUpperCase() + stat.slice(1)} Leaders`)
             .setColor(0x00AE86)
-            .setDescription(`${data.slice(i, i+10).map(player => `${player["rank"]}. ${player["name"]} \`(${player["avg"]})\``).join("\n")}`);
+            .setDescription(`${data.slice(i, i+10).map((player: PlayerStat) => `${player["rank" as keyof PlayerStat]}. ${player["name"  as keyof PlayerStat]} \`(${player["avg" as keyof PlayerStat]})\``).join("\n")}`);
         embeds.push(embed);
     }
     return embeds;
 }
 
-const paginationEmbed = async (msg, pages) => {
+const paginationEmbed = async (msg: Message, pages: MessageEmbed[]) => {
     const emojiList = ['⏪', '⏩'];
-    const filter = (reaction, user) => {
-        console.log(reaction.emoji.name);
+    const filter = (reaction: any, user: any) => {
         return emojiList.includes(reaction.emoji.name);
     } 
-	if (!msg && !msg.channel) throw new Error('The channel is inaccessible.');
+	if (!msg) throw new Error('The channel is inaccessible.');
 	if (!pages) throw new Error('There are no embeds to display.');
 	if (emojiList.length !== 2) throw new Error('pass at least two emojis.');
 	let page = 0;
@@ -56,7 +57,8 @@ const paginationEmbed = async (msg, pages) => {
 	for (const emoji of emojiList){
         await message.react(emoji);
     }
-	const collector = message.createReactionCollector(filter, {time: 120000});
+
+	const collector = message.createReactionCollector({filter, time: 12000});
 	collector.on('collect', reaction => {
 		reaction.users.remove(msg.author);
 		switch (reaction.emoji.name) {
@@ -78,3 +80,5 @@ const paginationEmbed = async (msg, pages) => {
 	});
 	return message;
 };
+
+export = stats;

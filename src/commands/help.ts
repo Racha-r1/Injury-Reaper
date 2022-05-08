@@ -1,6 +1,7 @@
-const {MessageEmbed} = require('discord.js');
+import { MessageEmbed} from 'discord.js';
+import Command from '../types/command';
 
-module.exports = {
+const help : Command = {
     name: 'help',
     description: 'The help command gives you a list of commands',
     execute(msg, args) {
@@ -18,9 +19,20 @@ module.exports = {
                 name: "!teams",
                 value:
                   "Gives you all the allowed team names that you can pass to the bot"
-              },
+            },
+            {
+              name: "!stats `statType`",
+              value:
+                "Gives you the top 50 players that have the highest average in the particular stat \n `ex: !stats rebounds`"
+            },
+            {
+              name: "!standings `conference`",
+              value:
+                "Gives you the standings of a particular conference \n `ex: !stats east`"
+            },
           )
         msg.channel.send({embeds: [help]});
     }
 }
 
+export = help;
