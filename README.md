@@ -13,3 +13,5 @@
 
 #### ```!stats <type> =>``` returns the top 50 players that have the highest average in the particular stat
 ```Possible stat types: [3P%, 3PM, points, assists, rebounds, steals, blocks, FTM, FTA, FG%, FGM]```
+
+#### ```!standings <conference> =>``` returns the standings for a specific conference
