@@ -3,7 +3,7 @@ import fs from 'fs';
 import dotenv from 'dotenv';
 import Command from './types/command';
 
-dotenv.config({path: '../.env'});
+dotenv.config();
 
 const client = new Client({intents: [
         Intents.FLAGS.GUILDS, 
@@ -33,4 +33,4 @@ client.on('messageCreate', (msg: Message) => {
     } 
 });
 
-client.login(process.env.TOKEN2);
+client.login(process.env.TOKEN);
