@@ -6,8 +6,6 @@ name: Node.js CI
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
 jobs:
   build:
@@ -16,16 +14,35 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x]
+        node-version: [16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+      - name: checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - name: Heroku login credentials
+        run: |
+          cat > ~/.netrc <<EOF
+            machine api.heroku.com
+              login $HEROKU_EMAIL
+              password $HEROKU_API_KEY
+            machine git.heroku.com
+              login $HEROKU_EMAIL
+              password $HEROKU_API_KEY
+          EOF
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_AUTH_TOKEN }}
+          HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
+      - name: Add Heroku remote
+        run: heroku git:remote --app $HEROKU_APP_NAME
+        env:
+          HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
+      - name: Push to Heroku
+        run: git push heroku main
