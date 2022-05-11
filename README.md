@@ -15,3 +15,11 @@
 ```Possible stat types: [3P%, 3PM, points, assists, rebounds, steals, blocks, FTM, FTA, FG%, FGM]```
 
 #### ```!standings <conference> =>``` returns the standings for a specific conference
+
+## API Routes
+
+#### ```GET /:team``` get the injuries for the specified team
+
+#### ```GET /standings/:conference``` get the standings for the specified conference ```(east or west)```
+
+#### ```GET /stats/:stat``` get the top 50 stat leaders for the specified stat
