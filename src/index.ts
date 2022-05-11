@@ -13,7 +13,7 @@ const client = new Client({intents: [
     ]});
 
 const commands: Command[] = [];
-const commandFiles: string[] = fs.readdirSync('./commands').filter((file: string) => file.endsWith('.ts') || file.endsWith('.js'));
+const commandFiles: string[] = fs.readdirSync(__dirname + '/commands').filter((file: string) => file.endsWith('.ts') || file.endsWith('.js'));
 
 client.on('ready', async() => {
 	console.log(`Logged in as ${client?.user?.tag}!`);

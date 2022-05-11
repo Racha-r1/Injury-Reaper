@@ -28,7 +28,7 @@ const help : Command = {
             {
               name: "!standings `conference`",
               value:
-                "Gives you the standings of a particular conference \n `ex: !stats east`"
+                "Gives you the standings of a particular conference \n `ex: !standings east`"
             },
           )
         msg.channel.send({embeds: [help]});
