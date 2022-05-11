@@ -13,7 +13,7 @@ const standings: Command = {
     name: 'standings',
     description: 'Get the standings of a specific conference',
     async execute(msg, args) {
-        const port = process.env.API_PORT || 5000;
+        const port = process.env.PORT || 5000;
         const url = `http://localhost:${port}/`;
         const {data} = await axios.get(`${url}standings/${args[0]}`);
         const teams = new MessageEmbed()

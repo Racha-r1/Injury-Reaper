@@ -21,7 +21,7 @@ const team_injuries: Command = {
             output_name += team.split(" ")[i].charAt(0).toUpperCase() + team.split(" ")[i].slice(1);
             output_name += " ";
         }
-        const port = process.env.API_PORT || 5000;
+        const port = process.env.PORT || 5000;
         const url = `http://localhost:${port}/`;
         axios.get(`${url}${team_api_name}`).then(res => {
             const team_injuries = res.data;

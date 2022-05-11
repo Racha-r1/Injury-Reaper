@@ -32,7 +32,7 @@ const stats : Command  = {
 }
 
 const buildEmbeds = async(endpoint: string, stat: string) : Promise<MessageEmbed[]> => {
-    const port = process.env.API_PORT || 5000;
+    const port = process.env.PORT || 5000;
     const url = `http://localhost:${port}/`;
     const {data}  = await axios.get(`${url}${endpoint}`);
     const embeds = [];
